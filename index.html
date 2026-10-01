@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools Hub - Discover Free AI Tools</title>
+    <!-- Подключаем шрифт Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Подключаем FontAwesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- CSS Переменные и Сброс --- */
+        :root {
+            --bg-color: #050508;
+            --bg-card: rgba(20, 20, 30, 0.6);
+            --bg-card-hover: rgba(30, 30, 45, 0.8);
+            --text-main: #ffffff;
+            --text-muted: #8b8b9a;
+            --accent-cyan: #00e5ff;
+            --accent-purple: #9d4edd;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --font-main: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            /* Создаем фоновое свечение */
+            background-image: 
+                radial-gradient(circle at 15% 10%, rgba(157, 78, 221, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 20%, rgba(0, 229, 255, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Шапка (Header) --- */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .logo i {
+            color: var(--accent-cyan);
+            font-size: 1.4rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+            transition: color 0.3s;
+        }
+
+        .btn-primary {
+            background: transparent;
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            text-align: center;
+            padding: 80px 0 60px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            color: var(--accent-cyan);
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- Карточки инструментов --- */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            padding: 40px 0;
+        }
+
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            background: var(--bg-card-hover);
+        }
+
+        .tool-card.featured {
+            border-color: rgba(0, 229, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .badge-action {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 400;
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .tool-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tool-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .tool-info h4 {
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tag {
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .tag.free {
+            background: rgba(0, 229, 255, 0.15);
+            color: var(--accent-cyan);
+        }
+
+        .tool-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* --- Статистика --- */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0) 100%);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* --- Как это работает --- */
+        .how-it-works {
+            padding: 60px 0 100px;
+            text-align: center;
+        }
+
+        .section-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--accent-purple);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .how-it-works h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .step-card {
+            background: rgba(20, 20, 30, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: left;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .step-card:hover {
+            border-color: rgba(157, 78, 221, 0.5);
+        }
+
+        .step-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.05);
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(157, 78, 221, 0.1);
+            border: 1px solid rgba(157, 78, 221, 0.3);
+            color: var(--accent-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .step-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .step-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Подвал (Footer) --- */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 60px 0 30px;
+            font-size: 0.85rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo i {
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+        }
+
+        .footer-desc {
+            color: var(--text-muted);
+            max-width: 300px;
+            line-height: 1.8;
+        }
+
+        .footer-col h4 {
+            color: var(--text-main);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: var(--text-muted);
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* --- Адаптивность --- */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 3rem; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .stats-section { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.2rem; }
+            .stats-section { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка -->
+    <header>
+        <div class="container nav-wrapper">
+            <div class="logo">
+                <i class="fa-solid fa-robot"></i>
+                AI TOOLS HUB
+            </div>
+            <nav class="nav-links">
+                <a href="#">Explore</a>
+                <a href="#">About</a>
+            </nav>
+            <button class="btn-primary">donate to us</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Главный экран -->
+        <section class="hero container">
+            <h1>Discover <span>Free</span> AI Tools</h1>
+            <p>The ultimate curated hub of powerful AI tools — completely free.</p>
+        </section>
+
+        <!-- Сетка с карточками -->
+        <section class="container tools-grid">
+            <!-- Карточка 1 -->
+            <div class="tool-card">
+                <div class="card-header">
+                    <span><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-cyan); margin-right: 8px;"></i> Top Free Image AI Tools</span>
+                    <span class="badge-action">4 Action</span>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon" style="color: #fff; background: #1a1a24;"><i class="fa-solid fa-m"></i></div>
+                    <div class="tool-info">
+                        <a href="https://openai.com/dall-e-3/">
+                        <h4>DALLE-3  <span class="tag free">Free</span></h4>
+                        <p>Generate stunning art from text prompts.</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon" style="color: #00e5ff; background: #1a1a24;"><i class="fa-solid fa-scissors"></i></div>
+                    <div class="tool-info">
+                        <a href="https://picnetic.ru/promo/main?source=208d&s1=709104484&s2=---autotargeting&s3=5742928969&s4=17690903218&s5=desktop&etext=2202.U-gvgYfJEU-hpssZt8gP0KDGQqHetD4G3aKiW1dvZ6xocWx3YWxicmFwanVld2di.23b0468d882c97060c67016c4b2cab5880c9e8bb&yclid=501429085226926079&ybaip=1">
+                        <h4>Picnetic AI  <span class="tag free">Free</span></h4>
+                        <p>Instantly remove backgrounds from images.</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon" style="color: #9d4edd; background: #1a1a24;"><i class="fa-solid fa-palette"></i></div>
+                    <div class="tool-info">
+                        <a HREF="https://playgroundai.com/">
+                        <h4>Playground AI  <span class="tag free">Free</span></h4>
+                        <p>Generate images from text descriptions.</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon" style="color: #ff9e00; background: #1a1a24;"><i class="fa-solid fa-layer-group"></i></div>
+                    <div class="tool-info">
+                        <a href="https://midjourney-ai.ru/?utm_source=ya_direct&utm_medium=cpc&utm_cabinet=podolnyandrei&utm_page=images&utm_campaign=708401990&utm_content=5735345068.1905267210703918483&utm_term=---autotargeting&yd_campaign_type=type1&yd_group_id=5735345068&yd_ad_id=1905267210703918483&yd_phrase_id=205735345068&yd_keyword=---autotargeting&yd_matched_keyword=&yd_match_type=&yd_adtarget_id=205735345068&yd_source_type=search&yd_source=none&yd_position_type=premium&yd_position=2&yd_device=desktop&yd_region_id=11114&etext=2202.jZFrnDf6jBrliSWTQJQNSHBBmrU13ZD1EORRsSe460ZmYXd4YnhicmtsbG1veGpo.cebca4d79077e366bb4d9d35238de3bab7e7d895&yclid=14281891769037357055">
+                        <h4>Midjourney <span class="tag free">Free</span></h4>
+                        <p>AI-powered image editing suite.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 2 (Центральная, выделенная) -->
+            <div class="tool-card featured">
+                <div class="card-header">
+                    <span><i class="fa-solid fa-video" style="color: var(--accent-cyan); margin-right: 8px;"></i> Top Free Video AI Tools</span>
+                    <span class="badge-action">5 Action</span>
+                </div>
+                <div class="tool-item" style="background: 1a1a24; border-radius: 8px; margin-bottom: 10px;">
+                    <div class="tool-icon" style="color: #fff; background: #00e5ff; border: none;"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="tool-info">
+                        <a href="https://unitool.ai/ru/runwayml">
+                        <h4>Runway ML <span class="tag free">Free</span> </h4>
+                        <p>Instantly remove backgrounds from videos.</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon" style="color: #fff; background: #1a1a24;"><i class="fa-solid fa-m"></i></div>
+                    <div class="tool-info">
+                        <a href="https://www.synthesia.io/">
+                        <h4>Synthesia AI <span class="tag free">Free</span></h4>
+                        <p>Generate stunning videos from text prompts.</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon" style="color: #00e5ff; background: #1a1a24;"><i class="fa-solid fa-scissors"></i></div>
+                    <div class="tool-info">
+                        <a href="https://neuro-holst.ru/ai-video-generator?utm_source=direct&utm_medium=NejroKHolst_Pika&etext=2202.GU63DfEeo0jPHI-XSW01oGjc6dcwcKgf9qKN2xJ_ey6Jr5vZjboTdN8d1cIEYZibZnh6c2VldmNpaGZheXRmdw.2e88efc439d36f81fddf1bea77fbd3dd8764b0ad&yclid=8061743562971938815">
+                        <h4>Pika AI <span class="tag free">Free</span></h4>
+                        <p>Generate stunning videos from text prompts.</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon" style="color: #9d4edd; background: #1a1a24;"><i class="fa-solid fa-palette"></i></div>
+                    <div class="tool-info">
+                        <a href="https://hey-gen.online/?utm_cabinet=podolnyandrei&utm_campaign=708401874&utm_content=5735344822.1905266933677091769&utm_medium=cpc&utm_page=video&utm_source=ya_direct&utm_term=---autotargeting&yclid=16734744249843580927&yd_ad_id=1905266933677091769&yd_adtarget_id=205735344822&yd_campaign_type=type1&yd_device=desktop&yd_group_id=5735344822&yd_keyword=---autotargeting&yd_match_type=&yd_matched_keyword=&yd_phrase_id=205735344822&yd_position=2&yd_position_type=dynamic_places&yd_region_id=172&yd_source=yandex.ru&yd_source_type=search">
+                        <h4>HeyGen <span class="tag free">Free</span></h4>
+                        <p>AI-powered video editing suite.</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon" style="color: #ff9e00; background: #1a1a24;"><i class="fa-solid fa-layer-group"></i></div>
+                    <div class="tool-info">
+                        <a href="https://www.d-id.com/">
+                        <h4>D-ID <span class="tag free">Free</span></h4>
+                        <p>Generate videos from text descriptions.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 3 -->
+            <div class="tool-card">
+                <div class="card-header">
+                    <span><i class="fa-solid fa-file-lines" style="color: var(--accent-cyan); margin-right: 8px;"></i> Top Free Text AI Tools</span>
+                    <span class="badge-action">4 Action</span>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon" style="color: #fff; background: #1a1a24;"><i class="fa-solid fa-m"></i></div>
+                    <div class="tool-info">
+                        <a href="https://gemini-chat.ru/?etext=2202.9tSN5WCbXXZBFteltlei2HFmZnRjaXh6Y2l6Ynp6bmI.5d44b002b9d73e0be69e7519c0f146569f1da79b&yclid=342359975932461055&ybaip=1">
+                        <h4>Google Gemini <span class="tag free">Free</span></h4>
+                        <p>A powerful tool for writing texts, articles, and scripts.</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon" style="color: #00e5ff; background: #1a1a24;"><i class="fa-solid fa-scissors"></i></div>
+                    <div class="tool-info">
+                        <a href="https://grokru.com/?etext=2202.bGBQcpAMrvjncRxtjfQlFjuAtLE09LYBLD0fPZ4gtFRjZ2F6cm90bm1kcGludWJx.a245de4cd63090e50f5d21078c685b2b4ead044b&yclid=9946714571922735103&ybaip=1">
+                        <h4>GROK AI <span class="tag free">Free</span></h4>
+                        <p>An advanced AI for writing long texts.</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon" style="color: #9d4edd; background: #1a1a24;"><i class="fa-solid fa-palette"></i></div>
+                    <div class="tool-info">
+                        <a href="https://chat.deepseek.com/a/chat/s/2fca23df-742d-4e36-b218-3305f6dac172">
+                        <h4>Deepseek <span class="tag free">Free</span></h4>
+                        <p>An intelligent assistant for writing content</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon" style="color: #ff9e00; background: #1a1a24;"><i class="fa-solid fa-layer-group"></i></div>
+                    <div class="tool-info">
+                        <a href="https://huggingface.co/login?next=https%3A%2F%2Fhuggingface.co%2Foauth%2Fauthorize%3Fclient_id%3D8f1a1d63-479b-46c8-84cb-521fe9f3222f%26scope%3Dopenid%2520profile%2520inference-api%2520read-mcp%2520read-billing%2520contribute-repos%2520jobs%26response_type%3Dcode%26redirect_uri%3Dhttps%253A%252F%252Fhuggingface.co%252Fchat%252Flogin%252Fcallback%26code_challenge_method%3DS256%26code_challenge%3DMTyScSwTmilpwosVPcPT_I_QNpXgBUh-QV-AL2QbZw4%26state%3DeyJkYXRhIjp7ImV4cGlyYXRpb24iOjE3OTA4NjQ1MzYzNzMsInJlZGlyZWN0VXJsIjoiaHR0cHM6Ly9odWdnaW5nZmFjZS5jby9jaGF0L2xvZ2luL2NhbGxiYWNrIiwibmV4dCI6Ii9jaGF0LyJ9LCJzaWduYXR1cmUiOiI0MzU1MmMyNjMxMTMwMzg3YTQxZWRhMGVmMDNkNTgwY2M4NTAwNmZjOGQ1Yjk5YzhmZGRiN2ZjMzg1NzUzNGM4In0%253D">
+                        <h4>HuggingChat <span class="tag free">Free</span></h4>
+                        <p>A chatbot based on open models.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Статистика -->
+        <section class="stats-section container">
+            <div class="stat-item">
+                <div class="stat-value">500+</div>
+                <div class="stat-label">Tools</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">FULL FREE</div>
+                <div class="stat-label">Price</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Usefulness</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">10K+</div>
+                <div class="stat-label">Users</div>
+            </div>
+        </section>
+
+        <!-- Как это работает -->
+        <section class="how-it-works container">
+            <span class="section-tag">Simplified Process</span>
+            <h2>How It Works</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <span class="step-number">01</span>
+                    <div class="step-icon"><i class="fa-solid fa-table-cells-large"></i></div>
+                    <h3>Browse Categories</h3>
+                    <p>Explore our specialized sectors, from text generation to complex 3D modeling platforms.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-number">02</span>
+                    <div class="step-icon"><i class="fa-solid fa-wrench"></i></div>
+                    <h3>Pick a Tool</h3>
+                    <p>Compare curated top-performing AI tools that offer generous free tiers with no catch.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-number">03</span>
+                    <div class="step-icon"><i class="fa-solid fa-rocket"></i></div>
+                    <h3>Start Creating</h3>
+                    <p>Launch your selected tool instantly and transform your workflow with artificial intelligence.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fa-solid fa-robot"></i> AI TOOLS HUB
+                    </div>
+                    <p class="footer-desc">
+                        A comprehensive directory showcasing the absolute best free AI tools available. Developed as a passionate student project.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <ul>
+                        <li><a href="#">Explore Tools</a></li>
+                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">Project Details</a></li>
+                        <li><a href="#">Contribute</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Student Project</h4>
+                    <ul>
+                        <li><a href="#">GitHub Source</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Aesthetics System</a></li>
+                        <li><a href="#">API Integration</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 AI Tools Hub Student Project. Hand-crafted with Cyberpunk-flare aesthetics.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                    <a href="#"><i class="fa-brands fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
